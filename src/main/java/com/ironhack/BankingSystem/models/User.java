@@ -14,13 +14,6 @@ public abstract class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles = new HashSet<>();
 
-    public User(String username, String password) {
-        this.username = username;
-    }
-
-    public User() {
-    }
-
     public Long getId() {
         return id;
     }

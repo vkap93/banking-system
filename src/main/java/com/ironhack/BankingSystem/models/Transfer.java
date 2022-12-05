@@ -15,6 +15,8 @@ public class Transfer {
 
     private BigDecimal transferAmount;
 
+    @ManyToOne
+    @JoinColumn(name = "account_origin_id")
     private Long accountOriginId;
 
     private Long accountTargetId;

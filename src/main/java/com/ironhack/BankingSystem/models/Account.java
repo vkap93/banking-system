@@ -21,7 +21,11 @@ public abstract class Account {
     private AccountHolder secondaryOwner;
     private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
     private LocalDate creationDate;
+
+    @Enumerated(EnumType.STRING)
     private AccountStatus accountStatus;
+
+    @OneToMany(mappedBy = "accountOriginId")
     private List<Transfer> transferList;
 
 }
