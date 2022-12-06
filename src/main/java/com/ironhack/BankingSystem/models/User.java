@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +14,13 @@ public abstract class User {
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles = new HashSet<>();
+
+    protected User() {
+    }
+
+    protected User(String username) {
+        this.username = username;
+    }
 
     public Long getId() {
         return id;
@@ -29,7 +37,6 @@ public abstract class User {
     public void setUsername(String username) {
         this.username = username;
     }
-
 
     public Set<Role> getRoles() {
         return roles;
