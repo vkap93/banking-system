@@ -12,10 +12,8 @@ public class CreditCard extends Account {
 
     private BigDecimal interestRate;
 
-    public CreditCard(AccountHolder primaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
-        super(primaryOwner);
-        this.creditLimit = creditLimit;
-        this.interestRate = interestRate;
+
+    public CreditCard() {
     }
 
     public CreditCard(AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
@@ -24,13 +22,6 @@ public class CreditCard extends Account {
         this.interestRate = interestRate;
     }
 
-    public CreditCard(AccountHolder primaryOwner) {
-        super(primaryOwner);
-    }
-
-    public CreditCard(AccountHolder primaryOwner, AccountHolder secondaryOwner) {
-        super(primaryOwner, secondaryOwner);
-    }
 
     public BigDecimal getCreditLimit() {
         return creditLimit;

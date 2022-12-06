@@ -4,39 +4,29 @@ import com.ironhack.BankingSystem.models.users.AccountHolder;
 import jakarta.persistence.Entity;
 
 import java.math.BigDecimal;
+import java.util.Random;
 
 @Entity
 public class Checking extends Account{
 
-    private BigDecimal minimumBalance;
-    private BigDecimal monthlyMaintenanceFee;
+    private final BigDecimal minimumBalance = BigDecimal.valueOf(250);
+    private final BigDecimal monthlyMaintenanceFee = BigDecimal.valueOf(12);
     private String secretKey;
 
     public Checking() {
     }
 
-    public Checking(AccountHolder primaryOwner) {
-        super(primaryOwner);
-    }
-
     public Checking(AccountHolder primaryOwner, AccountHolder secondaryOwner) {
         super(primaryOwner, secondaryOwner);
+        this.secretKey = String.valueOf(new Random().nextInt());
     }
 
     public BigDecimal getMinimumBalance() {
         return minimumBalance;
     }
 
-    public void setMinimumBalance(BigDecimal minimumBalance) {
-        this.minimumBalance = minimumBalance;
-    }
-
     public BigDecimal getMonthlyMaintenanceFee() {
         return monthlyMaintenanceFee;
-    }
-
-    public void setMonthlyMaintenanceFee(BigDecimal monthlyMaintenanceFee) {
-        this.monthlyMaintenanceFee = monthlyMaintenanceFee;
     }
 
     public String getSecretKey() {

@@ -2,20 +2,36 @@ package com.ironhack.BankingSystem.models.users;
 
 import com.google.common.hash.Hashing;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 import java.nio.charset.StandardCharsets;
 
 @Entity
-public class ThirdParty extends User {
+public class ThirdParty {
 
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
+
+private String name;
 private String hashedKey;
 
     public ThirdParty() {
     }
 
-    public ThirdParty(String username, String hashedKey) {
-        super(username);
+    public ThirdParty(String name, String hashedKey) {
+        setName(name);
         setHashedKey(hashedKey);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getHashedKey() {
@@ -24,7 +40,7 @@ private String hashedKey;
 
     public void setHashedKey(String hashedKey) {
         String sha256hex = Hashing.sha256()
-                .hashString(hashedKey, StandardCharsets.UTF_8)
+                .hashString(hashedKey + name, StandardCharsets.UTF_8)
                 .toString();
         this.hashedKey = sha256hex;
     }

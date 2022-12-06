@@ -11,6 +11,7 @@ public abstract class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
+    private String password;
     @JsonIgnore
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles = new HashSet<>();
@@ -18,7 +19,8 @@ public abstract class User {
     protected User() {
     }
 
-    protected User(String username) {
+    protected User(String username, String password) {
+        this.password = password;
         this.username = username;
     }
 
@@ -44,5 +46,13 @@ public abstract class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

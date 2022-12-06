@@ -4,6 +4,7 @@ import com.ironhack.BankingSystem.models.users.AccountHolder;
 import jakarta.persistence.Entity;
 
 import java.math.BigDecimal;
+import java.util.Random;
 
 @Entity
 public class Savings extends Account {
@@ -14,24 +15,11 @@ public class Savings extends Account {
     public Savings() {
     }
 
-    public Savings(AccountHolder primaryOwner, BigDecimal interestRate, BigDecimal minimumBalance) {
-        super(primaryOwner);
-        this.interestRate = interestRate;
-        this.minimumBalance = minimumBalance;
-    }
-
     public Savings(AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal interestRate, BigDecimal minimumBalance) {
         super(primaryOwner, secondaryOwner);
         this.interestRate = interestRate;
         this.minimumBalance = minimumBalance;
-    }
-
-    public Savings(AccountHolder primaryOwner) {
-        super(primaryOwner);
-    }
-
-    public Savings(AccountHolder primaryOwner, AccountHolder secondaryOwner) {
-        super(primaryOwner, secondaryOwner);
+        this.secretKey = String.valueOf(new Random().nextInt());
     }
 
     public String getSecretKey() {

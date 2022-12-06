@@ -11,7 +11,6 @@ import java.util.List;
 @Entity
 public class AccountHolder extends User {
 
- private String password;
  private LocalDate dateOfBirth;
 
  @Embedded
@@ -38,26 +37,10 @@ public class AccountHolder extends User {
  }
 
  public AccountHolder(String username, String password, LocalDate dateOfBirth, Address primaryAddress, Address mailingAddress) {
-  super(username);
-  this.password = password;
+  super(username,password);
   this.dateOfBirth = dateOfBirth;
   this.primaryAddress = primaryAddress;
   this.mailingAddress = mailingAddress;
- }
-
- public AccountHolder(String username, String password, LocalDate dateOfBirth, Address primaryAddress) {
-  super(username);
-  this.password = password;
-  this.dateOfBirth = dateOfBirth;
-  this.primaryAddress = primaryAddress;
- }
-
- public String getPassword() {
-  return password;
- }
-
- public void setPassword(String password) {
-  this.password = password;
  }
 
  public LocalDate getDateOfBirth() {
