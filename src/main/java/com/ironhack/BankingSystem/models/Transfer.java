@@ -1,5 +1,6 @@
 package com.ironhack.BankingSystem.models;
 
+import com.ironhack.BankingSystem.models.accounts.Account;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
@@ -16,17 +17,19 @@ public class Transfer {
     private BigDecimal transferAmount;
 
     @ManyToOne
-    @JoinColumn(name = "account_origin_id")
-    private Long accountOriginId;
+    @JoinColumn(name = "account_origin")
+    private Account accountOrigin;
 
-    private Long accountTargetId;
+    @ManyToOne
+    @JoinColumn(name = "account_target")
+    private Account accountTarget;
 
     private LocalDate creationDate;
 
-    public Transfer(BigDecimal transferAmount, Long accountOriginId, Long accountTargetId) {
+    public Transfer(BigDecimal transferAmount, Account accountOrigin, Account accountTarget) {
         this.transferAmount = transferAmount;
-        this.accountOriginId = accountOriginId;
-        this.accountTargetId = accountTargetId;
+        this.accountOrigin = accountOrigin;
+        this.accountTarget = accountTarget;
         this.creationDate = LocalDate.now();
     }
 
@@ -46,20 +49,20 @@ public class Transfer {
         this.transferAmount = transferAmount;
     }
 
-    public Long getAccountOriginId() {
-        return accountOriginId;
+    public Account getAccountOrigin() {
+        return accountOrigin;
     }
 
-    public void setAccountOriginId(Long accountOriginId) {
-        this.accountOriginId = accountOriginId;
+    public void setAccountOriginId(Account accountOrigin) {
+        this.accountOrigin = accountOrigin;
     }
 
-    public Long getAccountTargetId() {
-        return accountTargetId;
+    public Account getAccountTargetId() {
+        return accountTarget;
     }
 
-    public void setAccountTargetId(Long accountTargetId) {
-        this.accountTargetId = accountTargetId;
+    public void setAccountTarget(Account accountTarget) {
+        this.accountTarget = accountTarget;
     }
 
     public LocalDate getCreationDate() {

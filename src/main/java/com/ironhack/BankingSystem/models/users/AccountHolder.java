@@ -1,16 +1,15 @@
-package com.ironhack.BankingSystem.models;
+package com.ironhack.BankingSystem.models.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import com.ironhack.BankingSystem.models.Address;
+import com.ironhack.BankingSystem.models.accounts.Account;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-public class AccountHolder extends User{
+public class AccountHolder extends User {
 
  private String password;
  private LocalDate dateOfBirth;
@@ -19,6 +18,12 @@ public class AccountHolder extends User{
  private Address primaryAddress;
 
  @Embedded
+ @AttributeOverrides({
+         @AttributeOverride(name="address",column=@Column(name="mail_address")),
+         @AttributeOverride(name="city",column=@Column(name="mail_city")),
+         @AttributeOverride(name="postalCode",column=@Column(name="mail_postal")),
+         @AttributeOverride(name="country",column=@Column(name="mail_country")),
+ })
  private Address mailingAddress;
 
  @JsonIgnore

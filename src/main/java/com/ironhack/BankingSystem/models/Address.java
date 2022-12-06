@@ -5,12 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Embeddable
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Embeddable
 public class Address {
-    private String streetAddress;
-    private Long zipCode;
+
+    private String address;
+    private int postalCode;
+    private String city;
     private String country;
+
 }

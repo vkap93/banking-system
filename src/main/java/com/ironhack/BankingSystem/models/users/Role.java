@@ -1,4 +1,4 @@
-package com.ironhack.BankingSystem.models;
+package com.ironhack.BankingSystem.models.users;
 
 import jakarta.persistence.*;
 

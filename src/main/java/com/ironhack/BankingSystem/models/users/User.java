@@ -1,4 +1,4 @@
-package com.ironhack.BankingSystem.models;
+package com.ironhack.BankingSystem.models.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

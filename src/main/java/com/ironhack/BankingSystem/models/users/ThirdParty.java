@@ -1,4 +1,4 @@
-package com.ironhack.BankingSystem.models;
+package com.ironhack.BankingSystem.models.users;
 
 import com.google.common.hash.Hashing;
 import jakarta.persistence.Entity;
@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import java.nio.charset.StandardCharsets;
 
 @Entity
-public class ThirdParty extends User{
+public class ThirdParty extends User {
 
 private String hashedKey;
 

@@ -1,9 +1,9 @@
-package com.ironhack.BankingSystem.models;
+package com.ironhack.BankingSystem.models.users;
 
 import jakarta.persistence.*;
 
 @Entity
-public class Admin extends User{
+public class Admin extends User {
 private String password;
 
     public Admin(String username, String password) {
