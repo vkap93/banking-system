@@ -2,7 +2,7 @@ package com.ironhack.BankingSystem.models.accounts;
 
 import com.ironhack.BankingSystem.enums.AccountStatus;
 import com.ironhack.BankingSystem.models.users.AccountHolder;
-import com.ironhack.BankingSystem.models.Transfer;
+import com.ironhack.BankingSystem.models.Transaction;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -28,10 +28,10 @@ public abstract class Account {
     private AccountStatus accountStatus;
 
     @OneToMany(mappedBy = "accountOrigin")
-    private List<Transfer> transfersOut;
+    private List<Transaction> transfersOut;
 
     @OneToMany(mappedBy = "accountTarget")
-    private List<Transfer> transfersIn;
+    private List<Transaction> transfersIn;
 
     protected Account() {
     }
@@ -101,19 +101,19 @@ public abstract class Account {
         this.accountStatus = accountStatus;
     }
 
-    public List<Transfer> getTransfersOut() {
+    public List<Transaction> getTransfersOut() {
         return transfersOut;
     }
 
-    public void setTransfersOut(List<Transfer> transfersOut) {
+    public void setTransfersOut(List<Transaction> transfersOut) {
         this.transfersOut = transfersOut;
     }
 
-    public List<Transfer> getTransfersIn() {
+    public List<Transaction> getTransfersIn() {
         return transfersIn;
     }
 
-    public void setTransfersIn(List<Transfer> transfersIn) {
+    public void setTransfersIn(List<Transaction> transfersIn) {
         this.transfersIn = transfersIn;
     }
 }

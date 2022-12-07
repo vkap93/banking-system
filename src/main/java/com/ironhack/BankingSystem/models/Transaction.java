@@ -9,12 +9,12 @@ import java.time.LocalDate;
 
 @NoArgsConstructor
 @Entity
-public class Transfer {
+public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private BigDecimal transferAmount;
+    private BigDecimal transactionAmount;
 
     @ManyToOne
     @JoinColumn(name = "account_origin")
@@ -26,8 +26,8 @@ public class Transfer {
 
     private LocalDate creationDate;
 
-    public Transfer(BigDecimal transferAmount, Account accountOrigin, Account accountTarget) {
-        this.transferAmount = transferAmount;
+    public Transaction(BigDecimal transactionAmount, Account accountOrigin, Account accountTarget) {
+        this.transactionAmount = transactionAmount;
         this.accountOrigin = accountOrigin;
         this.accountTarget = accountTarget;
         this.creationDate = LocalDate.now();
@@ -42,11 +42,11 @@ public class Transfer {
     }
 
     public BigDecimal getTransferAmount() {
-        return transferAmount;
+        return transactionAmount;
     }
 
-    public void setTransferAmount(BigDecimal transferAmount) {
-        this.transferAmount = transferAmount;
+    public void setTransferAmount(BigDecimal transactionAmount) {
+        this.transactionAmount = transactionAmount;
     }
 
     public Account getAccountOrigin() {
