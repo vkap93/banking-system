@@ -28,7 +28,7 @@ public class AdminController implements AdminControllerInt {
 
     @PostMapping("/create-account_holder")
     @ResponseStatus(HttpStatus.CREATED)
-    public AccountHolder createAccountHolder(AccountHolder accountHolder) {
+    public AccountHolder createAccountHolder(@RequestBody AccountHolder accountHolder) {
         return adminService.createAccountHolder(accountHolder);
     }
 
@@ -38,7 +38,7 @@ public class AdminController implements AdminControllerInt {
 
     @PostMapping("/create-checking")
     @ResponseStatus(HttpStatus.CREATED)
-    public Checking createCheckingAccount(@RequestParam Long primaryOwnerId, Optional<Long> secondaryOwnerId) {
+    public Checking createCheckingAccount(@RequestParam Long primaryOwnerId, @RequestParam Optional<Long> secondaryOwnerId) {
         return adminService.createCheckingAccount(primaryOwnerId,secondaryOwnerId);
     }
 
