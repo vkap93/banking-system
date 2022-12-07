@@ -7,6 +7,7 @@ import com.ironhack.BankingSystem.models.users.AccountHolder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -20,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@AutoConfigureMockMvc
 @SpringBootTest
 public class AdminControllerTest {
     @Autowired
@@ -33,9 +35,9 @@ public class AdminControllerTest {
 
     @BeforeEach
     void setUp() {
-        objectMapper.registerModule(new JavaTimeModule());
         //Building mock by setting up the App context
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     @Test
@@ -44,7 +46,6 @@ public class AdminControllerTest {
         //Converting accountHolder to JSON
         String body = objectMapper.writeValueAsString(accountHolder);
         MvcResult result = mockMvc.perform(post("/admin/create-account_holder").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated()).andReturn();
-        System.out.println(result.getResponse());
         assertTrue(result.getResponse().getContentAsString().contains("John"));
     }
 }

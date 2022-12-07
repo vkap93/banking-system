@@ -19,7 +19,7 @@ public class Savings extends Account {
         super(primaryOwner, secondaryOwner);
         this.interestRate = interestRate;
         this.minimumBalance = minimumBalance;
-        this.secretKey = String.valueOf(new Random().nextInt(100000));
+        this.secretKey = String.valueOf(new Random().nextInt(900000) + 100000);
     }
 
     public String getSecretKey() {

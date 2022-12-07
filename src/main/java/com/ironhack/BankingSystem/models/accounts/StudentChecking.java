@@ -14,7 +14,7 @@ public class StudentChecking extends Account {
 
     public StudentChecking(AccountHolder primaryOwner, AccountHolder secondaryOwner) {
         super(primaryOwner, secondaryOwner);
-        this.secretKey = String.valueOf(new Random().nextInt(100000));
+        this.secretKey = String.valueOf(new Random().nextInt(900000) + 100000);
     }
 
     public String getSecretKey() {
