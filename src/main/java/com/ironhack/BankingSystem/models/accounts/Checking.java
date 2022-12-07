@@ -18,7 +18,7 @@ public class Checking extends Account{
 
     public Checking(AccountHolder primaryOwner, AccountHolder secondaryOwner) {
         super(primaryOwner, secondaryOwner);
-        this.secretKey = String.valueOf(new Random().nextInt());
+        this.secretKey = String.valueOf(new Random().nextInt(100000));
     }
 
     public BigDecimal getMinimumBalance() {

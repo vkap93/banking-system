@@ -2,14 +2,10 @@ package com.ironhack.BankingSystem.controllers;
 
 import com.ironhack.BankingSystem.controllers.interfaces.AdminControllerInt;
 import com.ironhack.BankingSystem.models.accounts.Account;
-import com.ironhack.BankingSystem.models.accounts.Checking;
 import com.ironhack.BankingSystem.models.accounts.CreditCard;
 import com.ironhack.BankingSystem.models.accounts.Savings;
 import com.ironhack.BankingSystem.models.users.AccountHolder;
 import com.ironhack.BankingSystem.models.users.ThirdParty;
-import com.ironhack.BankingSystem.repositories.users.AccountHolderRepository;
-import com.ironhack.BankingSystem.repositories.users.AdminRepository;
-import com.ironhack.BankingSystem.repositories.users.ThirdPartyRepository;
 import com.ironhack.BankingSystem.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,13 +28,15 @@ public class AdminController implements AdminControllerInt {
         return adminService.createAccountHolder(accountHolder);
     }
 
-    public ThirdParty createThirdParty(ThirdParty thirdParty) {
-        return null;
+    @PostMapping("/create-third_party")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ThirdParty createThirdParty(@RequestBody ThirdParty thirdParty) {
+        return adminService.createThirdParty(thirdParty);
     }
 
     @PostMapping("/create-checking")
     @ResponseStatus(HttpStatus.CREATED)
-    public Checking createCheckingAccount(@RequestParam Long primaryOwnerId, @RequestParam Optional<Long> secondaryOwnerId) {
+    public Account createCheckingAccount(@RequestParam Long primaryOwnerId, @RequestParam Optional<Long> secondaryOwnerId) {
         return adminService.createCheckingAccount(primaryOwnerId,secondaryOwnerId);
     }
 

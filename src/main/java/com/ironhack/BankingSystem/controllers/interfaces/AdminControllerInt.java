@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 public interface AdminControllerInt {
-  Checking createCheckingAccount(Long primaryOwnerId, Optional<Long> secondaryOwnerId);
+  Account createCheckingAccount(Long primaryOwnerId, Optional<Long> secondaryOwnerId);
 
   Savings createSavingsAccount(Savings savings);
 

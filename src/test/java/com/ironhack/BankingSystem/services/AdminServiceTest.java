@@ -21,7 +21,7 @@ public class AdminServiceTest {
     @Autowired
     AccountHolderRepository accountHolderRepository;
 
-    AccountHolder accountHolder = new AccountHolder("John Johnson", "1234", LocalDate.of(1990,1,15), new Address("Baker Street 23", "ZP578", "London", "UK"));
+    AccountHolder accountHolder = new AccountHolder("John Johnson", "1234", LocalDate.of(1999,1,15), new Address("Baker Street 23", "ZP578", "London", "UK"));
 
 
     @Test
