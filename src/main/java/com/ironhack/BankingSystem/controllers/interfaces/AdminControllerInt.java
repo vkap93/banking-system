@@ -5,9 +5,10 @@ import com.ironhack.BankingSystem.models.users.AccountHolder;
 import com.ironhack.BankingSystem.models.users.ThirdParty;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public interface AdminControllerInt {
-  Checking createCheckingAccount(Checking checking);
+  Checking createCheckingAccount(Long primaryOwnerId, Optional<Long> secondaryOwnerId);
 
   Savings createSavingsAccount(Savings savings);
 

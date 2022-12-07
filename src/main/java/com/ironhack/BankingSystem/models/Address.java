@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class Address {
 
     private String address;
-    private int postalCode;
+    private String postalCode;
     private String city;
     private String country;
 

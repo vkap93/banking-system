@@ -26,7 +26,7 @@ public class AccountHolder extends User {
  private Address mailingAddress;
 
  @JsonIgnore
- @OneToMany (mappedBy = "primaryOwner")
+ @OneToMany (mappedBy = "primaryOwner", fetch = FetchType.EAGER)
  private List<Account> primaryAccountList;
 
  @JsonIgnore
@@ -41,6 +41,12 @@ public class AccountHolder extends User {
   this.dateOfBirth = dateOfBirth;
   this.primaryAddress = primaryAddress;
   this.mailingAddress = mailingAddress;
+ }
+
+ public AccountHolder(String username, String password, LocalDate dateOfBirth, Address primaryAddress) {
+  super(username,password);
+  this.dateOfBirth = dateOfBirth;
+  this.primaryAddress = primaryAddress;
  }
 
  public LocalDate getDateOfBirth() {
