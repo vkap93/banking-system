@@ -16,7 +16,7 @@ public interface AdminControllerInt {
 
   BigDecimal getAccountBalance(Long id);
 
-  Account updateAccountBalance(Long id, BigDecimal balance);
+  Account modifyAccountBalance(Long id, BigDecimal balance);
 
   AccountHolder createAccountHolder(AccountHolder accountHolder);
 

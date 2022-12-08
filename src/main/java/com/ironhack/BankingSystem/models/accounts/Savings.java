@@ -17,8 +17,8 @@ public class Savings extends Account {
 
     public Savings(AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal interestRate, BigDecimal minimumBalance) {
         super(primaryOwner, secondaryOwner);
-        this.interestRate = interestRate;
-        this.minimumBalance = minimumBalance;
+        setMinimumBalance(minimumBalance);
+        setInterestRate(interestRate);
         this.secretKey = String.valueOf(new Random().nextInt(900000) + 100000);
     }
 
@@ -35,7 +35,13 @@ public class Savings extends Account {
     }
 
     public void setInterestRate(BigDecimal interestRate) {
-        this.interestRate = interestRate;
+        if (interestRate == null) {
+            this.interestRate = BigDecimal.valueOf(0.0025);
+        } else if (interestRate.compareTo(BigDecimal.valueOf(0.0025)) < 0 || interestRate.compareTo(BigDecimal.valueOf(0.05)) > 0) {
+            throw new IllegalArgumentException("The interest rate should be between 0.0025 and 0.05");
+        } else {
+            this.interestRate = interestRate;
+        }
     }
 
     public BigDecimal getMinimumBalance() {
@@ -43,6 +49,12 @@ public class Savings extends Account {
     }
 
     public void setMinimumBalance(BigDecimal minimumBalance) {
-        this.minimumBalance = minimumBalance;
+        if (minimumBalance == null) {
+            this.minimumBalance = BigDecimal.valueOf(1000);
+        } else if (minimumBalance.compareTo(BigDecimal.valueOf(100)) < 0 || interestRate.compareTo(BigDecimal.valueOf(1000)) > 0) {
+            throw new IllegalArgumentException("The minimum balance should be between 100 and 1000");
+        } else {
+            this.minimumBalance = minimumBalance;
+        }
     }
 }

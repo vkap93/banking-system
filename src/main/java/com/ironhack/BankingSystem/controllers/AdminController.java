@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/admin")
 public class AdminController implements AdminControllerInt {
 
@@ -40,20 +40,26 @@ public class AdminController implements AdminControllerInt {
         return adminService.createCheckingAccount(primaryOwnerId,secondaryOwnerId);
     }
 
-
-    public Savings createSavingsAccount(Savings savings) {
+    @PostMapping("/create-savings")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Savings createSavingsAccount(@RequestBody Savings savings) {
         return null;
     }
-
+    @PostMapping("/create-credit_card")
+    @ResponseStatus(HttpStatus.CREATED)
     public CreditCard createCreditCard(CreditCard creditCard) {
         return null;
     }
 
-    public BigDecimal getAccountBalance(Long id) {
+    @GetMapping("/check-balance/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public BigDecimal getAccountBalance(@PathVariable Long accountId) {
         return null;
     }
 
-    public Account updateAccountBalance(Long id, BigDecimal balance) {
-        return null;
+    @PatchMapping("/modify-balance/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Account modifyAccountBalance(@PathVariable Long accountId, @RequestParam BigDecimal balance) {
+        return adminService.modifyAccountBalance(accountId, balance);
     }
 }
