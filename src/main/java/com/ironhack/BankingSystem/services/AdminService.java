@@ -73,7 +73,16 @@ public class AdminService {
     }
 
     public Savings createSavingsAccount(Savings savings) {
-        return null;
+        AccountHolder primaryOwner = accountHolderRepository.findById(savings.getPrimaryOwner().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for primary owner not found in database"));
+        if (savings.getSecondaryOwner() != null) {
+            accountHolderRepository.findById(savings.getPrimaryOwner().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for secondary owner not found in database"));
+        }
+        Savings newSavings = new Savings();
+        newSavings.setPrimaryOwner(primaryOwner);
+        newSavings.setSecondaryOwner(savings.getSecondaryOwner());
+        newSavings.setInterestRate(savings.getInterestRate());
+        newSavings.setMinimumBalance(savings.getMinimumBalance());
+        return savingsRepository.save(newSavings);
     }
 
     public Account modifyAccountBalance(Long accountId, BigDecimal balance) {

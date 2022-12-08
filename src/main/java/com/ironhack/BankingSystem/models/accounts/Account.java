@@ -3,25 +3,32 @@ package com.ironhack.BankingSystem.models.accounts;
 import com.ironhack.BankingSystem.enums.AccountStatus;
 import com.ironhack.BankingSystem.models.users.AccountHolder;
 import com.ironhack.BankingSystem.models.Transaction;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import org.hibernate.annotations.*;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@DynamicUpdate
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Digits(integer = 13, fraction = 2)
+    @Min(0L)
     private BigDecimal balance;
     @ManyToOne
     private AccountHolder primaryOwner;
+
+    @Nullable
     @ManyToOne
     private AccountHolder secondaryOwner;
-    private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
     private LocalDate creationDate;
 
     @Enumerated(EnumType.STRING)
@@ -81,9 +88,6 @@ public abstract class Account {
         this.secondaryOwner = secondaryOwner;
     }
 
-    public BigDecimal getPenaltyFee() {
-        return penaltyFee;
-    }
 
     public LocalDate getCreationDate() {
         return creationDate;
@@ -115,6 +119,15 @@ public abstract class Account {
 
     public void setTransfersIn(List<Transaction> transfersIn) {
         this.transfersIn = transfersIn;
+    }
+
+    public void updateBalance(BigDecimal balanceChange) {
+        if (balanceChange.compareTo(BigDecimal.ZERO) < 0) {
+            balanceChange.negate();
+            setBalance(getBalance().subtract(balanceChange));
+        } else {
+            setBalance(getBalance().add(balanceChange));
+        }
     }
 }
 

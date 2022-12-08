@@ -8,7 +8,9 @@ import java.util.Random;
 
 @Entity
 public class Savings extends Account {
-    private String secretKey;
+    private String secretKey = String.valueOf(new Random().nextInt(900000) + 100000);
+
+    private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
     private BigDecimal interestRate;
     private BigDecimal minimumBalance;
 
@@ -19,7 +21,6 @@ public class Savings extends Account {
         super(primaryOwner, secondaryOwner);
         setMinimumBalance(minimumBalance);
         setInterestRate(interestRate);
-        this.secretKey = String.valueOf(new Random().nextInt(900000) + 100000);
     }
 
     public String getSecretKey() {
@@ -37,8 +38,8 @@ public class Savings extends Account {
     public void setInterestRate(BigDecimal interestRate) {
         if (interestRate == null) {
             this.interestRate = BigDecimal.valueOf(0.0025);
-        } else if (interestRate.compareTo(BigDecimal.valueOf(0.0025)) < 0 || interestRate.compareTo(BigDecimal.valueOf(0.05)) > 0) {
-            throw new IllegalArgumentException("The interest rate should be between 0.0025 and 0.05");
+        } else if (interestRate.compareTo(BigDecimal.valueOf(0.0025)) < 0 || interestRate.compareTo(BigDecimal.valueOf(0.5)) > 0) {
+            throw new IllegalArgumentException("The interest rate should be between 0.0025 and 0.5");
         } else {
             this.interestRate = interestRate;
         }
@@ -48,6 +49,10 @@ public class Savings extends Account {
         return minimumBalance;
     }
 
+    public BigDecimal getPenaltyFee() {
+        return penaltyFee;
+    }
+
     public void setMinimumBalance(BigDecimal minimumBalance) {
         if (minimumBalance == null) {
             this.minimumBalance = BigDecimal.valueOf(1000);
@@ -55,6 +60,13 @@ public class Savings extends Account {
             throw new IllegalArgumentException("The minimum balance should be between 100 and 1000");
         } else {
             this.minimumBalance = minimumBalance;
+        }
+    }
+
+    public void updateBalance(BigDecimal balanceChange) {
+        setBalance(getBalance().add(balanceChange));
+        if (getBalance().compareTo(minimumBalance) < 0) {
+            setBalance(getBalance().subtract(getPenaltyFee()));
         }
     }
 }

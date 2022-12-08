@@ -11,6 +11,7 @@ public class Checking extends Account{
 
     private final BigDecimal minimumBalance = BigDecimal.valueOf(250);
     private final BigDecimal monthlyMaintenanceFee = BigDecimal.valueOf(12);
+    private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
     private String secretKey;
 
     public Checking() {
@@ -35,5 +36,17 @@ public class Checking extends Account{
 
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey;
+    }
+
+    public BigDecimal getPenaltyFee() {
+        return penaltyFee;
+    }
+
+    @Override
+    public void updateBalance(BigDecimal balanceChange) {
+        super.updateBalance(balanceChange);
+        if (getBalance().compareTo(minimumBalance) < 0) {
+            setBalance(getBalance().subtract(getPenaltyFee()));
+        }
     }
 }

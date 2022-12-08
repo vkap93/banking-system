@@ -43,7 +43,7 @@ public class AdminController implements AdminControllerInt {
     @PostMapping("/create-savings")
     @ResponseStatus(HttpStatus.CREATED)
     public Savings createSavingsAccount(@RequestBody Savings savings) {
-        return null;
+        return adminService.createSavingsAccount(savings);
     }
     @PostMapping("/create-credit_card")
     @ResponseStatus(HttpStatus.CREATED)
