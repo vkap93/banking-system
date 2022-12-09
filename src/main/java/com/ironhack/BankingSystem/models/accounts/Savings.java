@@ -4,6 +4,9 @@ import com.ironhack.BankingSystem.models.users.AccountHolder;
 import jakarta.persistence.Entity;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Random;
 
 @Entity
@@ -13,6 +16,7 @@ public class Savings extends Account {
     private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
     private BigDecimal interestRate;
     private BigDecimal minimumBalance;
+    private LocalDate interestDate;
 
     public Savings() {
     }
@@ -33,6 +37,14 @@ public class Savings extends Account {
 
     public BigDecimal getInterestRate() {
         return interestRate;
+    }
+
+    public LocalDate getInterestDate() {
+        return interestDate;
+    }
+
+    public void setInterestDate(LocalDate interestDate) {
+        this.interestDate = interestDate;
     }
 
     public void setInterestRate(BigDecimal interestRate) {
@@ -67,6 +79,18 @@ public class Savings extends Account {
         setBalance(getBalance().add(balanceChange));
         if (getBalance().compareTo(minimumBalance) < 0) {
             setBalance(getBalance().subtract(getPenaltyFee()));
+        }
+    }
+
+    public void applyInterest() {
+        int yearsFromCreation = Period.between(getCreationDate(),LocalDate.now()).getYears();
+        if (yearsFromCreation >= 1 && getInterestDate() == null) {
+            setBalance(getBalance().add(getBalance().multiply(getInterestRate().multiply(BigDecimal.valueOf(yearsFromCreation)))));
+            setInterestDate(LocalDate.now());
+        } else if (Period.between(interestDate, LocalDate.now()).getYears() >=1 ) {
+            int yearsFromInterest = Period.between(interestDate, LocalDate.now()).getYears();
+            setBalance(getBalance().add(getBalance().multiply(getInterestRate().multiply(BigDecimal.valueOf(yearsFromInterest)))));
+            setInterestDate(LocalDate.now());
         }
     }
 }

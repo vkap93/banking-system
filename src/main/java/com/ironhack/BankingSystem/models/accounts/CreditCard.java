@@ -4,14 +4,18 @@ import com.ironhack.BankingSystem.models.users.AccountHolder;
 import jakarta.persistence.Entity;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 public class CreditCard extends Account {
 
     private BigDecimal creditLimit;
 
-
     private BigDecimal interestRate;
+
+    private LocalDate interestDate;
 
 
     public CreditCard() {
@@ -42,6 +46,14 @@ public class CreditCard extends Account {
         return interestRate;
     }
 
+    public LocalDate getInterestDate() {
+        return interestDate;
+    }
+
+    public void setInterestDate(LocalDate interestDate) {
+        this.interestDate = interestDate;
+    }
+
     public void setInterestRate(BigDecimal interestRate) {
         if (interestRate == null) {
             this.interestRate = BigDecimal.valueOf(0.2);
@@ -49,6 +61,18 @@ public class CreditCard extends Account {
             throw new IllegalArgumentException("The interest rate should be between 0.1 and 0.2");
         } else {
             this.interestRate = interestRate;
+        }
+    }
+
+    public void applyInterest(CreditCard creditCard) {
+        int monthsFromCreation = Period.between(getCreationDate(),LocalDate.now()).getMonths();
+        if (monthsFromCreation >= 1 && getInterestDate() == null) {
+            setBalance(getBalance().add(getBalance().multiply((getInterestRate().divide(BigDecimal.valueOf(12),2, RoundingMode.UP)).multiply(BigDecimal.valueOf(monthsFromCreation)))));
+            setInterestDate(LocalDate.now());
+        } else if (Period.between(interestDate, LocalDate.now()).getMonths() >=1 ) {
+            int monthsFromInterest = Period.between(interestDate, LocalDate.now()).getMonths();
+            setBalance(getBalance().add(getBalance().multiply((getInterestRate().divide(BigDecimal.valueOf(12),2, RoundingMode.UP)).multiply(BigDecimal.valueOf(monthsFromInterest)))));
+            setInterestDate(LocalDate.now());
         }
     }
 }
