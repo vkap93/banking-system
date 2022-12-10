@@ -2,8 +2,11 @@ package com.ironhack.BankingSystem.models.accounts;
 
 import com.ironhack.BankingSystem.models.users.AccountHolder;
 import jakarta.persistence.Entity;
+import org.springframework.cglib.core.Local;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Random;
 
 @Entity
@@ -13,6 +16,7 @@ public class Checking extends Account{
     private final BigDecimal monthlyMaintenanceFee = BigDecimal.valueOf(12);
     private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
     private String secretKey;
+    private LocalDate maintenanceDate;
 
     public Checking() {
     }
@@ -38,6 +42,14 @@ public class Checking extends Account{
         this.secretKey = secretKey;
     }
 
+    public LocalDate getMaintenanceDate() {
+        return maintenanceDate;
+    }
+
+    public void setMaintenanceDate(LocalDate maintenanceDate) {
+        this.maintenanceDate = maintenanceDate;
+    }
+
     public BigDecimal getPenaltyFee() {
         return penaltyFee;
     }
@@ -48,5 +60,23 @@ public class Checking extends Account{
         if (getBalance().compareTo(minimumBalance) < 0) {
             setBalance(getBalance().subtract(getPenaltyFee()));
         }
+    }
+
+    public void applyMaintenance() {
+        int monthsFromCreation = Period.between(getCreationDate(),LocalDate.now()).getMonths();
+        if (monthsFromCreation >= 1 && maintenanceDate == null) {
+            setBalance(super.getBalance().subtract((monthlyMaintenanceFee).multiply(BigDecimal.valueOf(monthsFromCreation))));
+            setMaintenanceDate(LocalDate.now());
+        } else if (Period.between(maintenanceDate, LocalDate.now()).getMonths() >=1 ) {
+            int monthsFromMaintenance = Period.between(maintenanceDate, LocalDate.now()).getMonths();
+            setBalance(super.getBalance().subtract((monthlyMaintenanceFee).multiply(BigDecimal.valueOf(monthsFromMaintenance))));
+            setMaintenanceDate(LocalDate.now());
+        }
+    }
+
+    @Override
+    public BigDecimal getBalance() {
+        applyMaintenance();
+        return super.getBalance();
     }
 }

@@ -25,11 +25,12 @@ public class SecurityConfiguration {
         httpSecurity.httpBasic();
 
         httpSecurity.authorizeHttpRequests()
-                .requestMatchers(HttpMethod.GET, "/admin**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.POST, "/admin**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.PATCH, "/admin**").hasRole("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, "/admin**").hasRole("ADMIN")
-
+                .requestMatchers(HttpMethod.GET, "/admin/*").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/admin/*").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PATCH, "/admin/*").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/admin/*").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/user/*").hasRole("USER")
+                .requestMatchers(HttpMethod.POST, "/user/*").hasRole("USER")
                 .anyRequest().permitAll();
 
         httpSecurity.csrf().disable();
