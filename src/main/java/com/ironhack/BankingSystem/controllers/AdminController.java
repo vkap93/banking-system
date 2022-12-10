@@ -9,7 +9,6 @@ import com.ironhack.BankingSystem.models.users.ThirdParty;
 import com.ironhack.BankingSystem.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -47,19 +46,25 @@ public class AdminController implements AdminControllerInt {
     }
     @PostMapping("/create-credit_card")
     @ResponseStatus(HttpStatus.CREATED)
-    public CreditCard createCreditCard(CreditCard creditCard) {
-        return null;
+    public CreditCard createCreditCard(@RequestBody CreditCard creditCard) {
+        return adminService.createCreditCard(creditCard);
     }
 
     @GetMapping("/check-balance/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public BigDecimal getAccountBalance(@PathVariable Long accountId) {
-        return null;
+    public BigDecimal getAccountBalance(@PathVariable("id") Long accountId) {
+        return adminService.getAccountBalance(accountId);
     }
 
     @PatchMapping("/modify-balance/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Account modifyAccountBalance(@PathVariable Long accountId, @RequestParam BigDecimal balance) {
+    public Account modifyAccountBalance(@PathVariable("id") Long accountId, @RequestParam BigDecimal balance) {
         return adminService.modifyAccountBalance(accountId, balance);
+    }
+
+    @DeleteMapping("/delete-account/{id}")
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    public void deleteAccount(@PathVariable("id") Long id)  {
+        adminService.deleteAccount(id);
     }
 }

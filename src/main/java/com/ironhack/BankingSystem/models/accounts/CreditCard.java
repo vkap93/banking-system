@@ -11,6 +11,7 @@ import java.time.Period;
 @Entity
 public class CreditCard extends Account {
 
+
     private BigDecimal creditLimit;
 
     private BigDecimal interestRate;
@@ -64,15 +65,23 @@ public class CreditCard extends Account {
         }
     }
 
-    public void applyInterest(CreditCard creditCard) {
+    public void applyInterest() {
         int monthsFromCreation = Period.between(getCreationDate(),LocalDate.now()).getMonths();
         if (monthsFromCreation >= 1 && getInterestDate() == null) {
-            setBalance(getBalance().add(getBalance().multiply((getInterestRate().divide(BigDecimal.valueOf(12),2, RoundingMode.UP)).multiply(BigDecimal.valueOf(monthsFromCreation)))));
+            setBalance(super.getBalance().add(super.getBalance().multiply((getInterestRate().divide(BigDecimal.valueOf(12),2, RoundingMode.UP)).multiply(BigDecimal.valueOf(monthsFromCreation)))));
             setInterestDate(LocalDate.now());
         } else if (Period.between(interestDate, LocalDate.now()).getMonths() >=1 ) {
             int monthsFromInterest = Period.between(interestDate, LocalDate.now()).getMonths();
-            setBalance(getBalance().add(getBalance().multiply((getInterestRate().divide(BigDecimal.valueOf(12),2, RoundingMode.UP)).multiply(BigDecimal.valueOf(monthsFromInterest)))));
+            setBalance(super.getBalance().add(super.getBalance().multiply((getInterestRate().divide(BigDecimal.valueOf(12),2, RoundingMode.UP)).multiply(BigDecimal.valueOf(monthsFromInterest)))));
             setInterestDate(LocalDate.now());
         }
+    }
+
+
+    @Override
+    public BigDecimal getBalance() {
+        applyInterest();
+        setBalance(super.getBalance().add(creditLimit));
+        return super.getBalance();
     }
 }

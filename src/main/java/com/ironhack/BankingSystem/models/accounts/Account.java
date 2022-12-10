@@ -124,7 +124,7 @@ public abstract class Account {
     public void updateBalance(BigDecimal balanceChange) {
         if (balanceChange.compareTo(BigDecimal.ZERO) < 0) {
             balanceChange.negate();
-            setBalance(getBalance().subtract(balanceChange));
+            setBalance(getBalance().subtract(balanceChange)); //Testear si es necesario
         } else {
             setBalance(getBalance().add(balanceChange));
         }

@@ -22,4 +22,6 @@ public interface AdminControllerInt {
 
   ThirdParty createThirdParty(ThirdParty thirdParty);
 
+  void deleteAccount(Long id);
+
 }

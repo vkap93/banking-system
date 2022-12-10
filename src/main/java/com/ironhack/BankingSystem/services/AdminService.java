@@ -9,8 +9,6 @@ import com.ironhack.BankingSystem.repositories.users.ThirdPartyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
@@ -83,6 +81,32 @@ public class AdminService {
         newSavings.setInterestRate(savings.getInterestRate());
         newSavings.setMinimumBalance(savings.getMinimumBalance());
         return savingsRepository.save(newSavings);
+    }
+
+    public CreditCard createCreditCard(CreditCard creditCard) {
+        AccountHolder primaryOwner = accountHolderRepository.findById(creditCard.getPrimaryOwner().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for primary owner not found in database"));
+        if (creditCard.getSecondaryOwner() != null) {
+            accountHolderRepository.findById(creditCard.getPrimaryOwner().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for secondary owner not found in database"));
+        }
+        CreditCard newCreditCard = new CreditCard();
+        newCreditCard.setPrimaryOwner(primaryOwner);
+        newCreditCard.setSecondaryOwner(creditCard.getSecondaryOwner());
+        newCreditCard.setInterestRate(creditCard.getInterestRate());
+        newCreditCard.setCreditLimit(creditCard.getCreditLimit());
+        return creditCardRepository.save(newCreditCard);
+    }
+
+    public void deleteAccount(Long accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account ID not found in database"));
+        if (account.getBalance().compareTo(BigDecimal.ZERO) > 0) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Account cannot be deleted with a remaining balance. Please transfer balance to another account");
+        }
+        accountRepository.deleteById(accountId);
+    }
+
+    public BigDecimal getAccountBalance(Long accountId) {
+        Account account = accountRepository.findById(accountId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Account ID not found in database"));
+        return account.getBalance();
     }
 
     public Account modifyAccountBalance(Long accountId, BigDecimal balance) {

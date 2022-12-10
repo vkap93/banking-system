@@ -75,8 +75,9 @@ public class Savings extends Account {
         }
     }
 
+    @Override
     public void updateBalance(BigDecimal balanceChange) {
-        setBalance(getBalance().add(balanceChange));
+        super.updateBalance(balanceChange);
         if (getBalance().compareTo(minimumBalance) < 0) {
             setBalance(getBalance().subtract(getPenaltyFee()));
         }
@@ -85,12 +86,18 @@ public class Savings extends Account {
     public void applyInterest() {
         int yearsFromCreation = Period.between(getCreationDate(),LocalDate.now()).getYears();
         if (yearsFromCreation >= 1 && getInterestDate() == null) {
-            setBalance(getBalance().add(getBalance().multiply(getInterestRate().multiply(BigDecimal.valueOf(yearsFromCreation)))));
+            setBalance(super.getBalance().add(super.getBalance().multiply(getInterestRate().multiply(BigDecimal.valueOf(yearsFromCreation)))));
             setInterestDate(LocalDate.now());
         } else if (Period.between(interestDate, LocalDate.now()).getYears() >=1 ) {
             int yearsFromInterest = Period.between(interestDate, LocalDate.now()).getYears();
-            setBalance(getBalance().add(getBalance().multiply(getInterestRate().multiply(BigDecimal.valueOf(yearsFromInterest)))));
+            setBalance(super.getBalance().add(super.getBalance().multiply(getInterestRate().multiply(BigDecimal.valueOf(yearsFromInterest)))));
             setInterestDate(LocalDate.now());
         }
+    }
+
+    @Override
+    public BigDecimal getBalance() {
+        applyInterest();
+        return super.getBalance();
     }
 }
