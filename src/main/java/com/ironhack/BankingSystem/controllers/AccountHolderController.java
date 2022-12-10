@@ -45,7 +45,7 @@ public class AccountHolderController implements AccountHolderControllerInt {
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.CREATED)
-    public Transaction createTransaction(@RequestBody TransactionDTO transactionDTO) {
-        return accountHolderService.createTransaction(transactionDTO);
+    public Transaction transfer(@RequestBody TransactionDTO transactionDTO) {
+        return accountHolderService.transfer(transactionDTO);
     }
 }

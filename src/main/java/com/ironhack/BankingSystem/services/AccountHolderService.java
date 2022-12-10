@@ -49,7 +49,7 @@ public class AccountHolderService {
         return null;
     }
 
-    public Transaction createTransaction(TransactionDTO transactionDTO){
+    public Transaction transfer(TransactionDTO transactionDTO){
         return null;
     }
 
