@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class AccountHolderController implements AccountHolderControllerInt {
@@ -24,9 +23,6 @@ public class AccountHolderController implements AccountHolderControllerInt {
     @GetMapping("/primary_accounts/{id}")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> listMyPrimaryAccounts(@PathVariable Long id) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName(); //get logged in username
-        //check security - authentication principal
         return accountHolderService.listMyPrimaryAccounts(id);
     }
 

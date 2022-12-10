@@ -16,18 +16,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AdminServiceTest {
 
     @Autowired
-   AdminService adminService;
+    AdminService adminService;
 
     @Autowired
     AccountHolderRepository accountHolderRepository;
 
-    AccountHolder accountHolder = new AccountHolder("John Johnson", "1234", LocalDate.of(1999,1,15), new Address("Baker Street 23", "ZP578", "London", "UK"));
+    AccountHolder accountHolder = new AccountHolder("John Johnson", "1234", LocalDate.of(1990,1,15), new Address("Baker Street 23", "ZP578", "London", "UK"));
 
 
     @Test
     void shouldCreateAccountHolder_whenSaved() {
-        adminService.createAccountHolder(accountHolder);
-        assertEquals(accountHolder.getUsername(), accountHolderRepository.findById(1L).get().getUsername());
+       adminService.createAccountHolder(accountHolder);
+       assertEquals(accountHolder.getUsername(), accountHolderRepository.findById(1L).get().getUsername());
     }
 
     @Test

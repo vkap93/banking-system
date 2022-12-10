@@ -27,6 +27,9 @@ public class SecurityConfiguration {
         httpSecurity.authorizeHttpRequests()
                 .requestMatchers(HttpMethod.GET, "/admin**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST, "/admin**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PATCH, "/admin**").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/admin**").hasRole("ADMIN")
+
                 .anyRequest().permitAll();
 
         httpSecurity.csrf().disable();

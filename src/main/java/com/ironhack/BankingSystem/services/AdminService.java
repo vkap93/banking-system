@@ -2,14 +2,20 @@ package com.ironhack.BankingSystem.services;
 
 import com.ironhack.BankingSystem.models.accounts.*;
 import com.ironhack.BankingSystem.models.users.AccountHolder;
+import com.ironhack.BankingSystem.models.users.Role;
 import com.ironhack.BankingSystem.models.users.ThirdParty;
 import com.ironhack.BankingSystem.repositories.accounts.*;
 import com.ironhack.BankingSystem.repositories.users.AccountHolderRepository;
+import com.ironhack.BankingSystem.repositories.users.RoleRepository;
 import com.ironhack.BankingSystem.repositories.users.ThirdPartyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -40,8 +46,18 @@ public class AdminService {
     @Autowired
     StudentCheckingRepository studentCheckingRepository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     public AccountHolder createAccountHolder(AccountHolder accountHolder) {
-        return accountHolderRepository.save(accountHolder);
+        System.out.println(accountHolder.getPassword());
+        accountHolder.setPassword(passwordEncoder.encode(accountHolder.getPassword()));
+        AccountHolder newAccountHolder = accountHolderRepository.save(accountHolder);
+        roleRepository.save(new Role("USER", accountHolder));
+        return newAccountHolder;
     }
 
     public ThirdParty createThirdParty(ThirdParty thirdParty) {

@@ -29,7 +29,7 @@ public class BankingSystemApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		User admin1 = userRepository.save(new Admin("Victor", passwordEncoder.encode("123456")));
-//		roleRepository.save(new Role("ADMIN",admin1));
+		User admin1 = userRepository.save(new Admin("Victor", passwordEncoder.encode("123456")));
+		roleRepository.save(new Role("ADMIN",admin1));
 	}
 }
