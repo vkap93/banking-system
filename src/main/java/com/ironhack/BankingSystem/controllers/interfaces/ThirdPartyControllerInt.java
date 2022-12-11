@@ -1,8 +1,12 @@
 package com.ironhack.BankingSystem.controllers.interfaces;
 
+import com.ironhack.BankingSystem.dtos.ThirdPartyTransactionDTO;
+import com.ironhack.BankingSystem.models.Transaction;
+
 public interface ThirdPartyControllerInt {
-    //AccountDTO ? amount, the Account id and the account secret key
-//    sendAmount(String hashedKey, amount, AccountDTO)
-//    receiveAmount(String hashedKey, amount, AccountDTO)
+
+    Transaction send(String hashedKey, ThirdPartyTransactionDTO thirdPartyTransactionDTO);
+
+    Transaction receive(String hashedKey, ThirdPartyTransactionDTO thirdPartyTransactionDTO);
 
 }

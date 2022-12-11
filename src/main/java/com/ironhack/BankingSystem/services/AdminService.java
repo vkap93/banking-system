@@ -51,19 +51,23 @@ public class AdminService {
     PasswordEncoder passwordEncoder;
 
     public AccountHolder createAccountHolder(AccountHolder accountHolder) {
-        System.out.println(accountHolder.getPassword());
+        //Retrieve password for account holder and convert it to encoded format
         accountHolder.setPassword(passwordEncoder.encode(accountHolder.getPassword()));
+        //Save and return new account holder and assign its role to user
         AccountHolder newAccountHolder = accountHolderRepository.save(accountHolder);
         roleRepository.save(new Role("USER", accountHolder));
         return newAccountHolder;
     }
 
     public ThirdParty createThirdParty(ThirdParty thirdParty) {
+        //Save and return new third party
         return thirdPartyRepository.save(thirdParty);
     }
 
     public Account createCheckingAccount(Long primaryOwnerId, Optional<Long> secondaryOwnerId) {
+        //Check if given primary owner exists, otherwise throw NOT FOUND
         AccountHolder primaryOwner = accountHolderRepository.findById(primaryOwnerId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for primary owner not found in database"));
+        //If secondary owner is present, check if it exists, then create either a student checking or checking account (depending on age of primary owner)
         if (secondaryOwnerId.isPresent()) {
             AccountHolder secondaryOwner = accountHolderRepository.findById(secondaryOwnerId.get()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for secondary owner not found in database"));
             if (Period.between(primaryOwner.getDateOfBirth(), LocalDate.now()).getYears() < 24) {
@@ -73,6 +77,7 @@ public class AdminService {
                 Checking checking = new Checking(primaryOwner, secondaryOwner);
                 return checkingRepository.save(checking);
             }
+        //If secondary owner is not given, then create either a student checking or checking account (only with the given primary owner, considering age)
         } else {
             if (Period.between(primaryOwner.getDateOfBirth(), LocalDate.now()).getYears() < 24) {
                 StudentChecking studentChecking = new StudentChecking(primaryOwner, null);
@@ -85,28 +90,28 @@ public class AdminService {
     }
 
     public Savings createSavingsAccount(Savings savings) {
+        //Check if given primary owner (from savings) exists, otherwise throw NOT FOUND
         AccountHolder primaryOwner = accountHolderRepository.findById(savings.getPrimaryOwner().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for primary owner not found in database"));
+        //In case secondary owner is given (from savings), check if it exists and throw NOT FOUND otherwise
         if (savings.getSecondaryOwner() != null) {
             accountHolderRepository.findById(savings.getPrimaryOwner().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for secondary owner not found in database"));
         }
-        Savings newSavings = new Savings();
-        newSavings.setPrimaryOwner(primaryOwner);
-        newSavings.setSecondaryOwner(savings.getSecondaryOwner());
-        newSavings.setInterestRate(savings.getInterestRate());
-        newSavings.setMinimumBalance(savings.getMinimumBalance());
+        //Create new Savings object using values parsed from savings
+        Savings newSavings = new Savings(primaryOwner,savings.getSecondaryOwner(),savings.getInterestRate(),savings.getMinimumBalance() );
+        //Return and save new savings account
         return savingsRepository.save(newSavings);
     }
 
     public CreditCard createCreditCard(CreditCard creditCard) {
+        //Check if given primary owner (from creditCard) exists, otherwise throw NOT FOUND
         AccountHolder primaryOwner = accountHolderRepository.findById(creditCard.getPrimaryOwner().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for primary owner not found in database"));
+        //In case secondary owner is given (from creditCard), check if it exists and throw NOT FOUND otherwise
         if (creditCard.getSecondaryOwner() != null) {
             accountHolderRepository.findById(creditCard.getPrimaryOwner().getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "ID for secondary owner not found in database"));
         }
-        CreditCard newCreditCard = new CreditCard();
-        newCreditCard.setPrimaryOwner(primaryOwner);
-        newCreditCard.setSecondaryOwner(creditCard.getSecondaryOwner());
-        newCreditCard.setInterestRate(creditCard.getInterestRate());
-        newCreditCard.setCreditLimit(creditCard.getCreditLimit());
+        //Create new CreditCard object using values parsed from savings
+        CreditCard newCreditCard = new CreditCard(primaryOwner, creditCard.getSecondaryOwner(), creditCard.getCreditLimit(),creditCard.getInterestRate());
+        //Return and save new credit card account
         return creditCardRepository.save(newCreditCard);
     }
 

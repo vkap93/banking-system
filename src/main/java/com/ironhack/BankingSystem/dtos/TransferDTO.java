@@ -1,28 +1,30 @@
 package com.ironhack.BankingSystem.dtos;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
-public class TransactionDTO {
+public class TransferDTO {
 
+    @NotNull
     private Long accountOriginId;
 
+    @NotNull
     private Long accountTargetId;
 
+    @NotNull
     private BigDecimal amount;
 
-    private Long primaryOwnerId;
+    private Long accountTargetOwnerId;
 
-    private Long secondaryOwnerId;
-
-    public TransactionDTO() {
+    public TransferDTO() {
     }
 
-    public TransactionDTO(Long accountOriginId, Long accountTargetId, BigDecimal amount, Long primaryOwnerId, Long secondaryOwnerId) {
+    public TransferDTO(Long accountOriginId, Long accountTargetId, BigDecimal amount, Long accountTargetOwnerId) {
         this.accountOriginId = accountOriginId;
         this.accountTargetId = accountTargetId;
         this.amount = amount;
-        this.primaryOwnerId = primaryOwnerId;
-        this.secondaryOwnerId = secondaryOwnerId;
+        this.accountTargetOwnerId = accountTargetOwnerId;
     }
 
     public Long getAccountOriginId() {
@@ -49,20 +51,12 @@ public class TransactionDTO {
         this.amount = amount;
     }
 
-    public Long getPrimaryOwnerId() {
-        return primaryOwnerId;
+    public Long getAccountTargetOwnerId() {
+        return accountTargetOwnerId;
     }
 
-    public void setPrimaryOwnerId(Long primaryOwnerId) {
-        this.primaryOwnerId = primaryOwnerId;
-    }
-
-    public Long getSecondaryOwnerId() {
-        return secondaryOwnerId;
-    }
-
-    public void setSecondaryOwnerId(Long secondaryOwnerId) {
-        this.secondaryOwnerId = secondaryOwnerId;
+    public void setAccountTargetOwnerId(Long accountTargetOwnerId) {
+        this.accountTargetOwnerId = accountTargetOwnerId;
     }
 }
 

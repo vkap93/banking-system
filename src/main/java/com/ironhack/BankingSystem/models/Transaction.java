@@ -1,6 +1,7 @@
 package com.ironhack.BankingSystem.models;
 
 import com.ironhack.BankingSystem.models.accounts.Account;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
@@ -24,13 +25,16 @@ public class Transaction {
     @JoinColumn(name = "account_target")
     private Account accountTarget;
 
+    private String thirdPartyName;
+
     private LocalDate creationDate;
 
-    public Transaction(BigDecimal transactionAmount, Account accountOrigin, Account accountTarget) {
+    public Transaction(BigDecimal transactionAmount, Account accountOrigin, Account accountTarget, String thirdPartyName) {
         this.transactionAmount = transactionAmount;
         this.accountOrigin = accountOrigin;
         this.accountTarget = accountTarget;
         this.creationDate = LocalDate.now();
+        this.thirdPartyName = thirdPartyName;
     }
 
     public Long getId() {

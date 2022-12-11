@@ -11,8 +11,6 @@ import java.util.Random;
 
 @Entity
 public class Savings extends Account {
-    private String secretKey = String.valueOf(new Random().nextInt(900000) + 100000);
-
     private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
     private BigDecimal interestRate;
     private BigDecimal minimumBalance;
@@ -25,14 +23,6 @@ public class Savings extends Account {
         super(primaryOwner, secondaryOwner);
         setMinimumBalance(minimumBalance);
         setInterestRate(interestRate);
-    }
-
-    public String getSecretKey() {
-        return secretKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
     }
 
     public BigDecimal getInterestRate() {

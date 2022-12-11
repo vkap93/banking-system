@@ -11,6 +11,7 @@ import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 @DynamicUpdate
@@ -39,6 +40,8 @@ public abstract class Account {
 
     @OneToMany(mappedBy = "accountTarget")
     private List<Transaction> transfersIn;
+
+    private final String secretKey = String.valueOf(new Random().nextInt(900000) + 100000);
 
     protected Account() {
     }
@@ -121,14 +124,11 @@ public abstract class Account {
         this.transfersIn = transfersIn;
     }
 
-    public void updateBalance(BigDecimal balanceChange) {
-        if (balanceChange.compareTo(BigDecimal.ZERO) < 0) {
-            balanceChange.negate();
-            setBalance(getBalance().subtract(balanceChange)); //Testear si es necesario
-        } else {
-            setBalance(getBalance().add(balanceChange));
-        }
+    public String getSecretKey() {
+        return secretKey;
     }
+
+    public void updateBalance(BigDecimal balanceChange) {setBalance(getBalance().add(balanceChange));}
 }
 
 

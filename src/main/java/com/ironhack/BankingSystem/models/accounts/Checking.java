@@ -2,12 +2,11 @@ package com.ironhack.BankingSystem.models.accounts;
 
 import com.ironhack.BankingSystem.models.users.AccountHolder;
 import jakarta.persistence.Entity;
-import org.springframework.cglib.core.Local;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Random;
+
 
 @Entity
 public class Checking extends Account{
@@ -15,7 +14,7 @@ public class Checking extends Account{
     private final BigDecimal minimumBalance = BigDecimal.valueOf(250);
     private final BigDecimal monthlyMaintenanceFee = BigDecimal.valueOf(12);
     private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
-    private String secretKey;
+
     private LocalDate maintenanceDate;
 
     public Checking() {
@@ -23,7 +22,6 @@ public class Checking extends Account{
 
     public Checking(AccountHolder primaryOwner, AccountHolder secondaryOwner) {
         super(primaryOwner, secondaryOwner);
-        this.secretKey = String.valueOf(new Random().nextInt(900000) + 100000);
     }
 
     public BigDecimal getMinimumBalance() {
@@ -32,14 +30,6 @@ public class Checking extends Account{
 
     public BigDecimal getMonthlyMaintenanceFee() {
         return monthlyMaintenanceFee;
-    }
-
-    public String getSecretKey() {
-        return secretKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
     }
 
     public LocalDate getMaintenanceDate() {
