@@ -22,7 +22,7 @@ For a visual overview of the application please refer to the attached Use Case a
 
 spring.datasource.url=jdbc:mysql://localhost:3306/banking?serverTimezone=UTC
 
-spring.datasource.username=root(or another preferred user)
+spring.datasource.username=root (or another preferred user)
 
 spring.datasource.password=YOURPASSWORD (for the given user)
 
@@ -35,7 +35,7 @@ spring.jpa.show-sql=true
 ### Installing
 
 * For interacting with all HTTP requests, please install Postman: https://www.postman.com/downloads/
-* If you would like to see all data created in the database, please open and create a schema called "banking" in mySQL Workbench (download and install: dev.mysql.com/downloads/workbench/)
+* If you would like to see all data created in the database, please open and create a schema called "banking" in mySQL Workbench (download and install: https://dev.mysql.com/downloads/workbench/)
 
 ### Executing program
 
