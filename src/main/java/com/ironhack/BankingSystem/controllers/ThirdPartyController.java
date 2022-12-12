@@ -16,12 +16,12 @@ public class ThirdPartyController implements ThirdPartyControllerInt {
 
     @PostMapping("/send")
     @ResponseStatus(HttpStatus.CREATED)
-    public Transaction send(@RequestHeader String hashedKey, @RequestBody ThirdPartyTransactionDTO thirdPartyTransactionDTO) {
+    public Transaction send(@RequestHeader("hashed-key") String hashedKey, @RequestBody ThirdPartyTransactionDTO thirdPartyTransactionDTO) {
         return thirdPartyService.send(hashedKey, thirdPartyTransactionDTO);
     }
     @PostMapping("/receive")
     @ResponseStatus(HttpStatus.CREATED)
-    public Transaction receive(@RequestHeader String hashedKey, @RequestBody ThirdPartyTransactionDTO thirdPartyTransactionDTO) {
+    public Transaction receive(@RequestHeader("hashed-key") String hashedKey, @RequestBody ThirdPartyTransactionDTO thirdPartyTransactionDTO) {
         return thirdPartyService.receive(hashedKey, thirdPartyTransactionDTO);
     }
 
