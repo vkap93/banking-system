@@ -3,7 +3,7 @@ package com.ironhack.BankingSystem.services;
 import com.ironhack.BankingSystem.dtos.ThirdPartyTransactionDTO;
 import com.ironhack.BankingSystem.models.Transaction;
 import com.ironhack.BankingSystem.models.accounts.Account;
-import com.ironhack.BankingSystem.models.users.ThirdParty;
+import com.ironhack.BankingSystem.models.ThirdParty;
 import com.ironhack.BankingSystem.repositories.TransactionRepository;
 import com.ironhack.BankingSystem.repositories.accounts.AccountRepository;
 import com.ironhack.BankingSystem.repositories.users.ThirdPartyRepository;

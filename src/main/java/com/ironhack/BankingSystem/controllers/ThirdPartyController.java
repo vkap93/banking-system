@@ -3,25 +3,26 @@ package com.ironhack.BankingSystem.controllers;
 import com.ironhack.BankingSystem.controllers.interfaces.ThirdPartyControllerInt;
 import com.ironhack.BankingSystem.dtos.ThirdPartyTransactionDTO;
 import com.ironhack.BankingSystem.models.Transaction;
+import com.ironhack.BankingSystem.services.ThirdPartyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ThirdPartyController implements ThirdPartyControllerInt {
 
+    @Autowired
+    ThirdPartyService thirdPartyService;
+
     @PostMapping("/send")
     @ResponseStatus(HttpStatus.CREATED)
-    public Transaction send(@RequestHeader String hashedKey, ThirdPartyTransactionDTO thirdPartyTransactionDTO) {
-        return null;
+    public Transaction send(@RequestHeader String hashedKey, @RequestBody ThirdPartyTransactionDTO thirdPartyTransactionDTO) {
+        return thirdPartyService.send(hashedKey, thirdPartyTransactionDTO);
     }
     @PostMapping("/receive")
     @ResponseStatus(HttpStatus.CREATED)
-    public Transaction receive(@RequestHeader String hashedKey, ThirdPartyTransactionDTO thirdPartyTransactionDTO) {
-        return null;
+    public Transaction receive(@RequestHeader String hashedKey, @RequestBody ThirdPartyTransactionDTO thirdPartyTransactionDTO) {
+        return thirdPartyService.receive(hashedKey, thirdPartyTransactionDTO);
     }
-
 
 }

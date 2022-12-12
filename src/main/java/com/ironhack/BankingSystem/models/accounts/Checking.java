@@ -15,7 +15,7 @@ public class Checking extends Account{
     private final BigDecimal monthlyMaintenanceFee = BigDecimal.valueOf(12);
     private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
 
-    private LocalDate maintenanceDate;
+    private LocalDate maintenanceDate = getCreationDate().plusMonths(1);
 
     public Checking() {
     }
@@ -54,7 +54,7 @@ public class Checking extends Account{
 
     public void applyMaintenance() {
         int monthsFromCreation = Period.between(getCreationDate(),LocalDate.now()).getMonths();
-        if (monthsFromCreation >= 1 && maintenanceDate == null) {
+        if (monthsFromCreation >= 1 && maintenanceDate == getCreationDate().plusMonths(1)) {
             setBalance(super.getBalance().subtract((monthlyMaintenanceFee).multiply(BigDecimal.valueOf(monthsFromCreation))));
             setMaintenanceDate(LocalDate.now());
         } else if (Period.between(maintenanceDate, LocalDate.now()).getMonths() >=1 ) {

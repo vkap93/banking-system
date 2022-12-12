@@ -11,10 +11,11 @@ import java.util.Random;
 
 @Entity
 public class Savings extends Account {
+
     private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
     private BigDecimal interestRate;
     private BigDecimal minimumBalance;
-    private LocalDate interestDate;
+    private LocalDate interestDate = getCreationDate().plusYears(1);
 
     public Savings() {
     }
@@ -75,7 +76,7 @@ public class Savings extends Account {
 
     public void applyInterest() {
         int yearsFromCreation = Period.between(getCreationDate(),LocalDate.now()).getYears();
-        if (yearsFromCreation >= 1 && getInterestDate() == null) {
+        if (yearsFromCreation >= 1 && getInterestDate() == getCreationDate().plusYears(1)) {
             setBalance(super.getBalance().add(super.getBalance().multiply(getInterestRate().multiply(BigDecimal.valueOf(yearsFromCreation)))));
             setInterestDate(LocalDate.now());
         } else if (Period.between(interestDate, LocalDate.now()).getYears() >=1 ) {

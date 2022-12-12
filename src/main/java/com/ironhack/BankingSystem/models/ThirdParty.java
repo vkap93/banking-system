@@ -1,4 +1,4 @@
-package com.ironhack.BankingSystem.models.users;
+package com.ironhack.BankingSystem.models;
 
 import com.google.common.hash.Hashing;
 import jakarta.persistence.Entity;

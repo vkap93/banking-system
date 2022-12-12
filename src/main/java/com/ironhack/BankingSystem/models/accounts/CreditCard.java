@@ -16,7 +16,7 @@ public class CreditCard extends Account {
 
     private BigDecimal interestRate;
 
-    private LocalDate interestDate;
+    private LocalDate interestDate = getCreationDate().plusMonths(1);
 
 
     public CreditCard() {
@@ -24,8 +24,8 @@ public class CreditCard extends Account {
 
     public CreditCard(AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
         super(primaryOwner, secondaryOwner);
-        this.creditLimit = creditLimit;
-        this.interestRate = interestRate;
+        setCreditLimit(creditLimit);
+        setInterestDate(interestDate);
     }
 
 
@@ -67,7 +67,7 @@ public class CreditCard extends Account {
 
     public void applyInterest() {
         int monthsFromCreation = Period.between(getCreationDate(),LocalDate.now()).getMonths();
-        if (monthsFromCreation >= 1 && getInterestDate() == null) {
+        if (monthsFromCreation >= 1 && getInterestDate() == getCreationDate().plusMonths(1)) {
             setBalance(super.getBalance().add(super.getBalance().multiply((getInterestRate().divide(BigDecimal.valueOf(12),2, RoundingMode.UP)).multiply(BigDecimal.valueOf(monthsFromCreation)))));
             setInterestDate(LocalDate.now());
         } else if (Period.between(interestDate, LocalDate.now()).getMonths() >=1 ) {
@@ -76,7 +76,6 @@ public class CreditCard extends Account {
             setInterestDate(LocalDate.now());
         }
     }
-
 
     @Override
     public BigDecimal getBalance() {

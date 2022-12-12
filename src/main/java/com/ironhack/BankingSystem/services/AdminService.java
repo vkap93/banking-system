@@ -3,7 +3,7 @@ package com.ironhack.BankingSystem.services;
 import com.ironhack.BankingSystem.models.accounts.*;
 import com.ironhack.BankingSystem.models.users.AccountHolder;
 import com.ironhack.BankingSystem.models.users.Role;
-import com.ironhack.BankingSystem.models.users.ThirdParty;
+import com.ironhack.BankingSystem.models.ThirdParty;
 import com.ironhack.BankingSystem.repositories.accounts.*;
 import com.ironhack.BankingSystem.repositories.users.AccountHolderRepository;
 import com.ironhack.BankingSystem.repositories.users.RoleRepository;

@@ -5,12 +5,10 @@ import com.ironhack.BankingSystem.models.accounts.Account;
 import com.ironhack.BankingSystem.models.accounts.CreditCard;
 import com.ironhack.BankingSystem.models.accounts.Savings;
 import com.ironhack.BankingSystem.models.users.AccountHolder;
-import com.ironhack.BankingSystem.models.users.ThirdParty;
+import com.ironhack.BankingSystem.models.ThirdParty;
 import com.ironhack.BankingSystem.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;

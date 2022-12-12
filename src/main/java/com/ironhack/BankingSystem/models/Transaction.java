@@ -1,7 +1,6 @@
 package com.ironhack.BankingSystem.models;
 
 import com.ironhack.BankingSystem.models.accounts.Account;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 

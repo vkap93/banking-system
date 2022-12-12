@@ -2,8 +2,7 @@ package com.ironhack.BankingSystem.controllers.interfaces;
 
 import com.ironhack.BankingSystem.models.accounts.*;
 import com.ironhack.BankingSystem.models.users.AccountHolder;
-import com.ironhack.BankingSystem.models.users.ThirdParty;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.ironhack.BankingSystem.models.ThirdParty;
 
 import java.math.BigDecimal;
 import java.util.Optional;

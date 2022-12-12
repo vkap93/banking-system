@@ -30,7 +30,6 @@ public class AccountHolderController implements AccountHolderControllerInt {
     @GetMapping("/secondary_accounts")
     @ResponseStatus(HttpStatus.OK)
     public List<Account> listMySecondaryAccounts(@AuthenticationPrincipal UserDetails userDetails) {
-        //check security - authentication principal
         return accountHolderService.listMySecondaryAccounts(userDetails);
     }
 
