@@ -1,6 +1,6 @@
 # Project Title
 
-Banking System
+Banking System.
 
 ## Description
 
@@ -8,8 +8,8 @@ A Spring Boot backend application for a banking system, implemented with Basic A
 
 For this application there are 2 levels of user: 
 
-*USER (access to all Account Holder controller requests)
-*ADMIN (access to all Admin controller requests)
+* USER (access to all Account Holder controller requests)
+* ADMIN (access to all Admin controller requests)
 
 The Third Party entity does not extend from the User class, so it is not included in the security dependencies.
 For a visual overview of the application please refer to the attached Use Case and Class diagrams in this repository.
@@ -21,8 +21,11 @@ For a visual overview of the application please refer to the attached Use Case a
 * After pulling the project source code please include a resources root folder with the following application.properties file (src/main/resources/application.properties) with your mySQL username and password:
 
 spring.datasource.url=jdbc:mysql://localhost:3306/banking?serverTimezone=UTC
+
 spring.datasource.username=root(or another preferred user)
+
 spring.datasource.password=YOURPASSWORD (for the given user)
+
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
 spring.jpa.hibernate.ddl-auto=create
