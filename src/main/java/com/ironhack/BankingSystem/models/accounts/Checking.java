@@ -15,13 +15,14 @@ public class Checking extends Account{
     private final BigDecimal monthlyMaintenanceFee = BigDecimal.valueOf(12);
     private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
 
-    private LocalDate maintenanceDate = getCreationDate().plusMonths(1);
+    private LocalDate maintenanceDate;
 
     public Checking() {
     }
 
     public Checking(AccountHolder primaryOwner, AccountHolder secondaryOwner) {
         super(primaryOwner, secondaryOwner);
+        this.maintenanceDate = LocalDate.now().plusMonths(1);
     }
 
     public BigDecimal getMinimumBalance() {

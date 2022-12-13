@@ -15,7 +15,7 @@ public class Savings extends Account {
     private final BigDecimal penaltyFee = BigDecimal.valueOf(40);
     private BigDecimal interestRate;
     private BigDecimal minimumBalance;
-    private LocalDate interestDate = getCreationDate().plusYears(1);
+    private LocalDate interestDate;
 
     public Savings() {
     }
@@ -24,6 +24,7 @@ public class Savings extends Account {
         super(primaryOwner, secondaryOwner);
         setMinimumBalance(minimumBalance);
         setInterestRate(interestRate);
+        this.interestDate = LocalDate.now().plusYears(1);
     }
 
     public BigDecimal getInterestRate() {

@@ -16,7 +16,7 @@ public class CreditCard extends Account {
 
     private BigDecimal interestRate;
 
-    private LocalDate interestDate = getCreationDate().plusMonths(1);
+    private LocalDate interestDate;
 
 
     public CreditCard() {
@@ -25,7 +25,8 @@ public class CreditCard extends Account {
     public CreditCard(AccountHolder primaryOwner, AccountHolder secondaryOwner, BigDecimal creditLimit, BigDecimal interestRate) {
         super(primaryOwner, secondaryOwner);
         setCreditLimit(creditLimit);
-        setInterestDate(interestDate);
+        setInterestRate(interestRate);
+        this.interestDate = LocalDate.now().plusMonths(1);
     }
 
 

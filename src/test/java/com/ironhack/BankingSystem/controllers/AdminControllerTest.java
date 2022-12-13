@@ -3,7 +3,8 @@ package com.ironhack.BankingSystem.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.ironhack.BankingSystem.models.Address;
-import com.ironhack.BankingSystem.models.users.AccountHolder;
+import com.ironhack.BankingSystem.models.ThirdParty;
+import com.ironhack.BankingSystem.models.users.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,14 @@ public class AdminControllerTest {
         String body = objectMapper.writeValueAsString(accountHolder);
         MvcResult result = mockMvc.perform(post("/admin/create-account_holder").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated()).andReturn();
         assertTrue(result.getResponse().getContentAsString().contains("John"));
+    }
+
+    @Test
+    void shouldCreateThirdParty_whenPostIsRequested() throws Exception {
+        ThirdParty thirdParty = new ThirdParty("Test ThirdParty", "543");
+        //Converting thirdParty to JSON
+        String body = objectMapper.writeValueAsString(thirdParty);
+        MvcResult result = mockMvc.perform(post("/admin/create-third_party").content(body).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isCreated()).andReturn();
+        assertTrue(result.getResponse().getContentAsString().contains("Test"));
     }
 }

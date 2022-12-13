@@ -41,7 +41,7 @@ spring.jpa.show-sql=true
 
 * Execute java class file BankingSystemApplication: 2 User objects will be created -> TestAdmin (password "abcd") and TestUser(password "1234"). 	
 
-* Head over to controllers, you will find different HTTP requests available under AccountHolderController, AdminController and ThirdPartyController
+* Head over to controllers, you will find different HTTP requests available under AccountHolderController, AdminController and ThirdPartyController.
 
 * Please refer to code comments under AccountHolderService, AdminService and ThirdPartyService for more details on the logic of the HTTP requests.
 
