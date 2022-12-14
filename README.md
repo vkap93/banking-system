@@ -20,17 +20,17 @@ For a visual overview of the application please refer to the attached Use Case a
 
 * After pulling the project source code please include a resources root folder with the following application.properties file (src/main/resources/application.properties) with your mySQL username and password:
 
-spring.datasource.url=jdbc:mysql://localhost:3306/banking?serverTimezone=UTC
+    spring.datasource.url=jdbc:mysql://localhost:3306/banking?serverTimezone=UTC
 
-spring.datasource.username=root (or another preferred user)
+    spring.datasource.username=root (or another preferred user)
 
-spring.datasource.password=YOURPASSWORD (for the given user)
+    spring.datasource.password=YOURPASSWORD (for the given user)
 
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-spring.jpa.hibernate.ddl-auto=create
+    spring.jpa.hibernate.ddl-auto=create
 
-spring.jpa.show-sql=true
+    spring.jpa.show-sql=true
 
 ### Installing
 
@@ -39,7 +39,8 @@ spring.jpa.show-sql=true
 
 ### Executing program
 
-* Execute java class file BankingSystemApplication: 2 User objects will be created -> TestAdmin (password "abcd") and TestUser(password "1234"). 	
+* Execute java class file BankingSystemApplication: 
+    - 2 User objects will be created -> TestAdmin (password "abcd") and TestUser(password "1234"). 	
 
 * Head over to controllers, you will find different HTTP requests available under AccountHolderController, AdminController and ThirdPartyController.
 
@@ -72,7 +73,7 @@ GET REQUEST("/primary_accounts") - to retrieve all primary accounts from logged-
 
 GET REQUEST("/secondary_accounts") - to retrieve all secondary accounts from logged-in Account Holder.
 
-GET REQUEST("/check-balance/{accountId"} - to check balance of an Account from logged-in Account Holder.
+GET REQUEST("/check-balance/{accountId}") - to check balance of an Account from logged-in Account Holder.
 
 POST REQUEST("/transfer") - to create a Transaction from an Account from logged-in Account Holder..
 
